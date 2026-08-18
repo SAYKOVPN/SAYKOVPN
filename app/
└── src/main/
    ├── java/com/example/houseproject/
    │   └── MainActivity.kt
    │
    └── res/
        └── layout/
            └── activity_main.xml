@@ -1,0 +1,8 @@
+app/
+└── src/main/
+    ├── java/com/example/houseproject/
+    │   └── MainActivity.kt
+    │
+    └── res/
+        └── layout/
+            └── activity_main.xml

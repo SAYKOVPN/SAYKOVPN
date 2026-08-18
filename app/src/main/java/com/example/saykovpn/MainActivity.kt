@@ -27,7 +27,7 @@ class MainActivity : Activity() {
         disconnectButton = findViewById(R.id.disconnectButton)
 
         connectButton.setOnClickListener {
-            startVpn()
+            prepareVpn()
         }
 
         disconnectButton.setOnClickListener {
@@ -35,17 +35,20 @@ class MainActivity : Activity() {
         }
     }
 
-    private fun startVpn() {
-        val intent = VpnService.prepare(this)
+    private fun prepareVpn() {
+        val permissionIntent = VpnService.prepare(this)
 
-        if (intent != null) {
-            startActivityForResult(intent, VPN_REQUEST_CODE)
+        if (permissionIntent != null) {
+            startActivityForResult(
+                permissionIntent,
+                VPN_REQUEST_CODE
+            )
         } else {
-            startVpnService()
+            startVpn()
         }
     }
 
-    private fun startVpnService() {
+    private fun startVpn() {
         val intent = Intent(this, PugVpnService::class.java)
         startService(intent)
 
@@ -55,7 +58,8 @@ class MainActivity : Activity() {
     }
 
     private fun stopVpn() {
-        stopService(Intent(this, PugVpnService::class.java))
+        val intent = Intent(this, PugVpnService::class.java)
+        stopService(intent)
 
         statusText.text = "Статус: отключено"
         connectButton.isEnabled = true
@@ -73,7 +77,7 @@ class MainActivity : Activity() {
         if (requestCode == VPN_REQUEST_CODE &&
             resultCode == RESULT_OK
         ) {
-            startVpnService()
+            startVpn()
         }
     }
 }

@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Theme.SAYKOVPN"
-        parent="@android:style/Theme.Material.Light.NoActionBar">
+    <application
+        android:allowBackup="true"
+        android:label="SAYKOVPN"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SAYKOVPN">
 
-        <item name="android:fontFamily">sans</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
 
-    </style>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
-</resources>
+        </activity>
+
+        <service
+            android:name=".PugVpnService"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+
+        </service>
+
+    </application>
+
+</manifest>

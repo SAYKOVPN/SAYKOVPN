@@ -14,12 +14,12 @@ class PugVpnService : VpnService() {
         startId: Int
     ): Int {
 
-        startVpn()
+        createVpn()
 
         return START_STICKY
     }
 
-    private fun startVpn() {
+    private fun createVpn() {
 
         if (vpnInterface != null) {
             return
@@ -28,12 +28,9 @@ class PugVpnService : VpnService() {
         val builder = Builder()
 
         builder.setSession("SAYKOVPN")
-
         builder.addAddress("10.8.0.2", 32)
-
         builder.addDnsServer("1.1.1.1")
         builder.addDnsServer("8.8.8.8")
-
         builder.addRoute("0.0.0.0", 0)
 
         vpnInterface = builder.establish()
